@@ -1,0 +1,1 @@
+A simple app for The Odin Project where you can make a library.
