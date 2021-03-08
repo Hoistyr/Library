@@ -62,7 +62,7 @@ html, body {
 
 #formDiv {
     position: absolute;
-    height: 400px;
+    height: auto;
     width: 300px;
     margin-top: 110px;
     margin-left: auto;
@@ -103,6 +103,7 @@ html, body {
     font-size: larger;
     background-color: rgb(194, 194, 194);
     border-color: transparent;
+    margin-bottom: 15px;
 }
 
 #submitButton:hover {
@@ -115,4 +116,17 @@ html, body {
     height: 240px;
     background-color: wheat;
     margin: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+}
+
+#inLibrary {
+    color:maroon;
+    margin: 5px;
+}
+
+.title {
+    font-style: italic;
 }
