@@ -22,7 +22,7 @@ function bookInfoForm () {
     formDiv.appendChild(formInputDiv);
 
     const formHolder = document.createElement('form');
-    formHolder.id = 'formInputDiv';
+    formHolder.id = 'formHolder';
     formInputDiv.appendChild(formHolder);
 
     const bookTitleText = document.createElement('p');
@@ -113,7 +113,6 @@ function swapYesNo () {
 }
 
 function submitForm() {
-    
     if (bookAuthorInput.required && bookPageCountInput.required && bookTitleInput.required) {
         console.log('submit clicked');
         let newBook = getBookInformation();
@@ -123,14 +122,20 @@ function submitForm() {
         console.log(newBookAuthor);
         if (myLibrary.some(book => book.title === newBookTitle && book.author === newBookAuthor)) {
             console.log('already in library');
+            const inLibrary = document.createElement('p');
+            inLibrary.id = 'inLibrary';
+            inLibrary.textContent = 'Already in library';
+            const bookInformation = document.getElementById('bookInformation');
+            if (!document.getElementById('inLibrary')) { 
+                bookInformation.insertAdjacentElement('afterend', inLibrary); 
+            }
         } else {
             myLibrary.push(getBookInformation());
             console.log(myLibrary);
             addBookToLibrary();
             removeForm();
         } 
-    }
-        
+    }   
 }
 
 function bookCheck (newBook) {
@@ -156,14 +161,36 @@ function addBookToLibrary () {
         
         if (!document.querySelector(`[data-title='${book.title}']`) && !document.querySelector(`[data-author='${book.author}']`)) {
             let newBookDiv = document.createElement('div');
-            newBookDiv.textContent = `${bookInformation}`;
             newBookDiv.className = 'libraryBook';
             newBookDiv.dataset.title = `${book.title}`;
             newBookDiv.dataset.author = `${book.author}`;
+            console.log(newBookDiv.dataset.title);
             bookList.appendChild(newBookDiv);
+            let bookHolder = document.querySelector(`[data-title='${book.title}']`);
+            let title = document.createElement('p');
+            title.textContent = book.title;
+            title.className = 'title'
+            bookHolder.appendChild(title);
+            
+            let author = document.createElement('p');
+            author.textContent = book.author;
+            author.className = 'author'
+            bookHolder.appendChild(author);
+            
+            let pageCount = document.createElement('p');
+            pageCount.textContent = `${book.pageCount} pages`;
+            pageCount.className = 'pageCount'
+            bookHolder.appendChild(pageCount);
+            
+            let readStatus = document.createElement('p');
+            console.log(book.isRead);
+            readStatus.textContent = book.isRead();
+            readStatus.className = 'readStatus'
+            bookHolder.appendChild(readStatus);
+            
         } else if (document.querySelector(`[data-title='${book.title}']`) && !document.querySelector(`[data-author='${book.author}']`)) {
             let newBookDiv = document.createElement('div');
-            newBookDiv.textContent = `${bookInformation}`;
+            
             newBookDiv.className = 'libraryBook';
             newBookDiv.dataset.title = `${book.title}`;
             newBookDiv.dataset.author = `${book.author}`;
@@ -171,7 +198,10 @@ function addBookToLibrary () {
         }
         
         else {
+            const formDiv = document.getElementById('fromDiv');
+            console.log(formDiv);
             console.log('already in library');
+            
         }
     }) 
     
@@ -187,13 +217,18 @@ function Book(title, author, pageCount, readStatus) {
     this.author = author;
     this.pageCount = pageCount;
     if (readStatus === true) {
-        isRead =  'read';
+        this.isRead = function () {
+            return 'read';
+        }
+
     } else {
-        isRead = 'unread';
+        this.isRead = function () {
+            return 'unread';
+        }
     }
     this.readStatus = readStatus;
     this.info = function () {
-        let bookInfo = title + ' by ' + author + ', ' + pageCount + ' pages, ' + isRead;
+        let bookInfo = title + ' by ' + author + ', ' + pageCount + ' pages, ' + this.isRead();
         return bookInfo;
     }
 } 
