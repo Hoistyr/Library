@@ -1,0 +1,118 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    flex: 1; 
+}
+
+#header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: blanchedalmond;
+    height: 100px;
+}
+
+#headerText {
+    color: rgb(0, 0, 0);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+}
+
+#bookInput {
+    background-color: rgb(255, 255, 255);
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    margin-bottom: 10px;
+}
+
+#bookList {
+    display: flex;
+    flex-direction: row;
+}
+
+#addBook {
+    display:flex;
+    justify-content: center;
+}
+
+#addBookButton {
+    margin-top: 25px;
+    height: 2em;
+    background-color:whitesmoke;
+    border-radius: 5px;
+    border-color: transparent;
+    font-size: large;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;
+}
+
+#addBookButton:hover {
+    background-color:rgb(194, 194, 194);
+    transform: scale(1.05);
+}
+
+#formDiv {
+    position: absolute;
+    height: 400px;
+    width: 300px;
+    margin-top: 110px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    background-color: rgb(233, 233, 233);
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 25px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;
+}
+
+#bookReadText {
+    margin-bottom: 0px;
+}
+
+#bookReadNoText {
+    margin-left: 5px;
+}
+
+#formInputCheckboxDiv {
+    display: flex;
+    margin-top: 0px;
+}
+
+.form {
+    height: 30px;
+    border-style: solid;
+    box-sizing: border-box;
+    border-color: transparent;
+}
+
+#submitButton {
+    text-align: center;
+    font-size: larger;
+    background-color: rgb(194, 194, 194);
+    border-color: transparent;
+}
+
+#submitButton:hover {
+    background-color:rgb(194, 194, 194);
+    transform: scale(1.05);
+}
+
+.libraryBook {
+    width: 200px;
+    height: 240px;
+    background-color: wheat;
+    margin: 15px;
+}
