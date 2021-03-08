@@ -9,14 +9,15 @@ html, body {
     flex-direction: column;
     height: 100%;
     margin: 0;
-    flex: 1; 
+    flex: 1;
+    background-color: #DEBD97; 
 }
 
 #header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: blanchedalmond;
+    background-color: #f5deb3;
     height: 100px;
 }
 
@@ -27,7 +28,7 @@ html, body {
 }
 
 #bookInput {
-    background-color: rgb(255, 255, 255);
+    background-color: #DEBD97;
     display:flex;
     flex-direction: column;
     align-items: center;
@@ -38,17 +39,19 @@ html, body {
 #bookList {
     display: flex;
     flex-direction: row;
+    background-color: #DEBD97;
 }
 
 #addBook {
     display:flex;
     justify-content: center;
+    background-color: #DEBD97;
 }
 
 #addBookButton {
     margin-top: 25px;
     height: 2em;
-    background-color:whitesmoke;
+    background-color:#f5deb3;
     border-radius: 5px;
     border-color: transparent;
     font-size: large;
@@ -69,7 +72,7 @@ html, body {
     margin-right: auto;
     left: 0;
     right: 0;
-    background-color: rgb(233, 233, 233);
+    background-color: #f5deb3;
     z-index: 99;
     display: flex;
     flex-direction: column;
@@ -114,12 +117,13 @@ html, body {
 .libraryBook {
     width: 200px;
     height: 240px;
-    background-color: wheat;
+    background-color: #f5deb3;
     margin: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 10px;
+    box-shadow:3px 3px 20px rgba(0, 0, 0, 0.452);
 }
 
 #inLibrary {
