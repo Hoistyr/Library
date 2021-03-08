@@ -166,7 +166,7 @@ function addBookToLibrary () {
             newBookDiv.dataset.author = `${book.author}`;
             console.log(newBookDiv.dataset.title);
             bookList.appendChild(newBookDiv);
-            let bookHolder = document.querySelector(`[data-title='${book.title}']`);
+            let bookHolder = document.querySelector(`[data-title='${book.title}'][data-author='${book.author}']`);
             let title = document.createElement('p');
             title.textContent = book.title;
             title.className = 'title'
@@ -190,11 +190,32 @@ function addBookToLibrary () {
             
         } else if (document.querySelector(`[data-title='${book.title}']`) && !document.querySelector(`[data-author='${book.author}']`)) {
             let newBookDiv = document.createElement('div');
-            
             newBookDiv.className = 'libraryBook';
             newBookDiv.dataset.title = `${book.title}`;
             newBookDiv.dataset.author = `${book.author}`;
+            console.log(newBookDiv.dataset.title);
             bookList.appendChild(newBookDiv);
+            let bookHolder = document.querySelector(`[data-title='${book.title}'][data-author='${book.author}']`);
+            let title = document.createElement('p');
+            title.textContent = book.title;
+            title.className = 'title'
+            bookHolder.appendChild(title);
+            
+            let author = document.createElement('p');
+            author.textContent = book.author;
+            author.className = 'author'
+            bookHolder.appendChild(author);
+            
+            let pageCount = document.createElement('p');
+            pageCount.textContent = `${book.pageCount} pages`;
+            pageCount.className = 'pageCount'
+            bookHolder.appendChild(pageCount);
+            
+            let readStatus = document.createElement('p');
+            console.log(book.isRead);
+            readStatus.textContent = book.isRead();
+            readStatus.className = 'readStatus'
+            bookHolder.appendChild(readStatus);
         }
         
         else {
@@ -218,12 +239,12 @@ function Book(title, author, pageCount, readStatus) {
     this.pageCount = pageCount;
     if (readStatus === true) {
         this.isRead = function () {
-            return 'read';
+            return 'Read';
         }
 
     } else {
         this.isRead = function () {
-            return 'unread';
+            return 'Unread';
         }
     }
     this.readStatus = readStatus;
