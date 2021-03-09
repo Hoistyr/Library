@@ -1,6 +1,6 @@
 
 let storedLibrary = JSON.parse(localStorage.getItem('storedLibrary'));
-if (storedLibrary === null) {
+if (storedLibrary === null || storedLibrary == []) {
     myLibrary = [];
     const exampleBook = new Book('The Way of Kings', 'Brandon Sanderson', '1007', true);
     myLibrary.push(exampleBook);
@@ -9,10 +9,6 @@ if (storedLibrary === null) {
     buildBooks();
 }
 newBookButton();
-console.log(myLibrary);
-
-
-
 buildLibrary();
 
 function populateStorage () {
@@ -50,7 +46,6 @@ function buildLibrary () {
     myLibrary.forEach(function (book) {
         console.log('Book Title: ' + book.title);
         console.log('Book Author: ' + book.author);
-        console.log(book);
         
         if ((!document.querySelector(`[data-title='${book.title}']`) && !document.querySelector(`[data-author='${book.author}']`)) 
         || (document.querySelector(`[data-title='${book.title}']`) && !document.querySelector(`[data-author='${book.author}']`))) {
@@ -92,7 +87,6 @@ function buildLibrary () {
             readStatus.textContent = `[${book.isRead()}]`;
             readStatus.classList.add('readStatus', 'bookInformation');
             if (book.readStatus === true) {
-                console.log(book.readStatus);
                 newBookDiv.classList.add('read');
             }
             bookHolder.appendChild(readStatus);
@@ -167,7 +161,7 @@ function bookInfoForm () {
     formHolder.appendChild(bookAuthorInput);
 
     const bookPageCountText = document.createElement('p');
-    bookPageCountText.id = 'bookTitleText';
+    bookPageCountText.id = 'bookPageCountText';
     bookPageCountText.className = 'formDescription';
     bookPageCountText.textContent = 'Page Count:';
     formHolder.appendChild(bookPageCountText);
@@ -226,7 +220,57 @@ function swapYesNo () {
 }
 
 function submitForm() {
-    if (bookAuthorInput.required && bookPageCountInput.required && bookTitleInput.required) {
+    let bookTitleInput = document.getElementById('bookTitleInput');
+    let bookAuthorText = document.getElementById('bookAuthorText');
+    let bookAuthorInput = document.getElementById('bookAuthorInput');
+    let bookPageCountText = document.getElementById('bookPageCountText');
+    let bookPageCountInput = document.getElementById('bookPageCountInput');
+    let formInputCheckboxDiv = document.getElementById('formInputCheckboxDiv');
+    if (bookTitleInput.value === '') {
+        let formHolder = document.getElementById('formHolder');
+        if (!document.getElementById('titleReminder')) {
+            
+            let titleReminder = document.createElement('p');
+            titleReminder.id = 'titleReminder';
+            titleReminder.textContent = 'Please enter a title';
+            titleReminder.classList.add('noInputReminder');
+            formHolder.insertBefore(titleReminder, bookAuthorText);
+            bookTitleInput.addEventListener('click', function () {
+            titleReminder.remove();
+            })
+        }
+        
+    }
+    
+    if (bookAuthorInput.value === '') {
+        if (!document.getElementById('authorReminder')) {
+            let authorReminder = document.createElement('p');
+            authorReminder.id = 'authorReminder';
+            authorReminder.textContent = 'Please enter an author';
+            authorReminder.classList.add('noInputReminder');
+            formHolder.insertBefore(authorReminder, bookPageCountText);
+            bookAuthorInput.addEventListener('click', function () {
+            authorReminder.remove();
+            })
+        }
+    }
+ 
+    if (bookPageCountInput.value === '') {
+        if (!document.getElementById('pageCountReminder')) {
+            let pageCountReminder = document.createElement('p');
+            pageCountReminder.id = 'pageCountReminder';
+            pageCountReminder.textContent = 'Please enter a valid page count';
+            pageCountReminder.classList.add('noInputReminder');
+            formHolder.insertBefore(pageCountReminder, formInputCheckboxDiv);
+            bookPageCountInput.addEventListener('click', function () {
+            pageCountReminder.remove();
+            })
+        }
+    }
+    
+    console.log(bookAuthorText);
+    console.log(bookPageCountText);
+    if (bookPageCountInput.value !== '' && bookAuthorInput.value !== '' && bookTitleInput.value !== '') {
         console.log('submit clicked');
         let newBook = getBookInformation();
         let newBookTitle = newBook.title;
@@ -238,19 +282,18 @@ function submitForm() {
             const inLibrary = document.createElement('p');
             inLibrary.id = 'inLibrary';
             inLibrary.textContent = 'Already in library';
-            const formDiv = document.getElementById('formDiv');
+            let formDiv = document.getElementById('formDiv');
             if (!document.getElementById('inLibrary')) { 
                 formDiv.appendChild(inLibrary);
             }
         } else {
             myLibrary.push(getBookInformation());
-            console.log(myLibrary);
             buildLibrary();
             populateStorage();
             removeBackgroundFadeOut();
             removeForm();
-        } 
-    }   
+        }
+    }
 }
 
 function getBookInformation () {
@@ -271,11 +314,9 @@ function deleteBook(eventData) {
     let bookTitle = eventData.target.dataset.title;
     let bookAuthor = eventData.target.dataset.author;
     doubleCheckDelete(bookTitle, bookAuthor, eventData);
-    console.log(myLibrary);
 }
 
 function doubleCheckDelete(bookTitle, bookAuthor, eventData) {
-    console.log(bookTitle + bookAuthor);
     let backgroundFadeOut = document.createElement('div');
     backgroundFadeOut.classList.add('backgroundFadeOut');
     container.insertBefore(backgroundFadeOut, header);
@@ -304,11 +345,10 @@ function doubleCheckDelete(bookTitle, bookAuthor, eventData) {
         let  bookToDelete = document.getElementById(`book:${eventData.target.dataset.title}-${eventData.target.dataset.author}`);
         for (book in myLibrary) {
             if (myLibrary[book].title === bookToDelete.dataset.title && myLibrary[book].author === bookToDelete.dataset.author) {
-                    myLibrary.splice(book, 1);
-                    bookToDelete.remove();
-                    console.log(myLibrary);
-                    buildLibrary();
-                    populateStorage();
+                myLibrary.splice(book, 1);
+                bookToDelete.remove();
+                buildLibrary();
+                populateStorage();
             }      
         }
     });

@@ -275,3 +275,7 @@ html, body {
 .read {
     background-image: linear-gradient(to bottom right, #0984e3, #015a9e);
 }
+
+.noInputReminder {
+    color: #ff7675;
+}
