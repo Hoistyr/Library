@@ -9,7 +9,7 @@ html, body {
     flex-direction: column;
     height: 100%;
     margin: 0;
-    background-color: #DEBD97;
+    background-color: #dfe6e9;
     align-items: center;
 }
 
@@ -17,19 +17,19 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f5deb3;
+    background-color: #2d3436;
     height: 100px;
     width: 100%;
 }
 
 #headerText {
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     
 }
 
 #bookInput {
-    background-color: #DEBD97;
+    background-color: #dfe6e9;
     display:flex;
     flex-direction: column;
     align-items: center;
@@ -40,7 +40,7 @@ html, body {
 #booksContainer {
     display: flex;
     flex-direction: row;
-    background-color: #DEBD97;
+    background-color: #dfe6e9;
     width: 97%;
     height: 100%;
     justify-content: center;
@@ -60,13 +60,14 @@ html, body {
 #addBook {
     display:flex;
     justify-content: center;
-    background-color: #DEBD97;
+    background-color: #0984e3;
 }
 
 #addBookButton {
     margin-top: 25px;
     height: 2em;
-    background-color:#f5deb3;
+    color: white;
+    background-color:#0984e3;
     border-radius: 5px;
     border-color: transparent;
     font-size: large;
@@ -74,7 +75,7 @@ html, body {
 }
 
 #addBookButton:hover {
-    background-color:rgb(194, 194, 194);
+    background-color:#74b9ff;
     transform: scale(1.05);
 }
 
@@ -87,7 +88,8 @@ html, body {
     margin-right: auto;
     left: 0;
     right: 0;
-    background-color: #f5deb3;
+    background-color: #636e72;
+    color: white;
     z-index: 99;
     display: flex;
     flex-direction: column;
@@ -119,20 +121,22 @@ html, body {
 #submitButton {
     text-align: center;
     font-size: larger;
-    background-color: rgb(194, 194, 194);
+    background-color: transparent;
     border-color: transparent;
     margin-bottom: 15px;
+    color: white;
 }
 
 #submitButton:hover {
-    background-color:rgb(194, 194, 194);
     transform: scale(1.05);
+    cursor: pointer;
 }
 
 .libraryBook {
     width: 190px;
     height: 240px;
-    background-color: #f5deb3;
+    background-color: #636e72;
+    color: white;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 15px;
@@ -151,12 +155,12 @@ html, body {
     top: -17px;
     right: 9px;
     font-family: fantasy;
-    color: gray;
+    color: #dfe6e9;
     font-size: 1.2rem;
 }
 
 .removeBookButton:hover {
-    color:indianred;
+    color:#ff7675;
     cursor: pointer;
 }
 
@@ -188,12 +192,12 @@ html, body {
     font-family: inherit;
     font-style: inherit;
     font-size: inherit;
-    color:gray;
+    color:#dfe6e9;
     display: block;
     bottom: 2px;
 }
 .readStatus:hover {
-    color:royalblue;
+    color:#74b9ff;
     cursor: pointer;
 }
 
@@ -210,17 +214,24 @@ html, body {
     margin-right: auto;
     left: 0;
     right: 0;
-    background-color: #DECC97;
+    background-color: #2d3436;
     z-index: 99;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.25rem;
+    padding: 1rem;
 }
 
 #doubleCheckDeleteButtonHolder {
     margin-bottom: 1rem;
+}
+
+#doubleCheckDelete {
+    color: white;
 }
 
 .doubleCheckDeleteButton {
@@ -229,11 +240,15 @@ html, body {
     font-family: inherit;
     font-style: inherit;
     font-size: inherit;
-    color:gray;
+    color:white;
 }
 
 .doubleCheckDeleteButton:hover {
-    color:indianred;
+    transform: scale(1.10);
+    cursor: pointer;
+}
+
+#doubleCheckDeleteYes:hover {
     cursor: pointer;
 }
 

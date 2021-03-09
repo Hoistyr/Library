@@ -98,6 +98,7 @@ function bookInfoForm () {
 
     const submitButton = document.createElement('button');
     submitButton.textContent = 'Add to Library';
+    submitButton.style.textDecoration = 'underline';
     submitButton.id = "submitButton";
     submitButton.type = "button";
     formDiv.appendChild(submitButton);
