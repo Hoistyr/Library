@@ -1,13 +1,39 @@
-pageLoad();
-let myLibrary = [];
 
-const exampleBook  = new Book('The Way of Kings', 'Brandon Sanderson', '1007', true);
-myLibrary.push(exampleBook);
+let storedLibrary = JSON.parse(localStorage.getItem('storedLibrary'));
+if (storedLibrary === null) {
+    myLibrary = [];
+    const exampleBook = new Book('The Way of Kings', 'Brandon Sanderson', '1007', true);
+    myLibrary.push(exampleBook);
+} else {
+    myLibrary = [];
+    buildBooks();
+}
+newBookButton();
+console.log(myLibrary);
+
+
+
 buildLibrary();
 
-function pageLoad () {
+function populateStorage () {
+    localStorage.setItem('storedLibrary', JSON.stringify(myLibrary));
+}
+
+function newBookButton () {
     let addBookButton = document.getElementById('addBookButton')
     addBookButton.addEventListener('click', bookInfoForm);
+}
+
+function buildBooks () {
+    storedLibrary.forEach(function(book){
+        let title = book.title;
+        let author = book.author;
+        let pageCount = book.pageCount;
+        let readStatus = book.readStatus;
+        let newBook = new Book(title, author, pageCount, readStatus);
+        myLibrary.push(newBook);
+        
+    })
 }
 
 function buildLibrary () {
@@ -25,9 +51,6 @@ function buildLibrary () {
         console.log('Book Title: ' + book.title);
         console.log('Book Author: ' + book.author);
         console.log(book);
-        let bookInformation = book.info();
-        console.log(bookInformation);
-        //console.log(bookList.querySelector(`[data-title='${book.title}']`));
         
         if ((!document.querySelector(`[data-title='${book.title}']`) && !document.querySelector(`[data-author='${book.author}']`)) 
         || (document.querySelector(`[data-title='${book.title}']`) && !document.querySelector(`[data-author='${book.author}']`))) {
@@ -35,7 +58,6 @@ function buildLibrary () {
             newBookDiv.className = 'libraryBook';
             newBookDiv.dataset.title = `${book.title}`;
             newBookDiv.dataset.author = `${book.author}`;
-            console.log(newBookDiv.dataset.title);
             newBookDiv.id = `book:${book.title}-${book.author}`
             bookList.appendChild(newBookDiv);
             let bookHolder = document.querySelector(`[data-title='${book.title}'][data-author='${book.author}']`);
@@ -83,12 +105,14 @@ function buildLibrary () {
                     newBookDiv.classList.remove('read');
                     console.log('started true, changed to: ' + book.readStatus);
                     console.log(myLibrary);
+                    populateStorage();
                 } else if (book.readStatus === false) {
                     book.readStatus = true;
                     readStatusElement.textContent = `[${book.isRead()}]`;
                     newBookDiv.classList.add('read');
                     console.log('started false, changed to: ' + book.readStatus);
                     console.log(myLibrary);
+                    populateStorage();
                 }
             });
             console.log(myLibrary);
@@ -214,14 +238,15 @@ function submitForm() {
             const inLibrary = document.createElement('p');
             inLibrary.id = 'inLibrary';
             inLibrary.textContent = 'Already in library';
-            const bookInformation = document.getElementById('bookInformation');
+            const formDiv = document.getElementById('formDiv');
             if (!document.getElementById('inLibrary')) { 
-                bookInformation.insertAdjacentElement('afterend', inLibrary); 
+                formDiv.appendChild(inLibrary);
             }
         } else {
             myLibrary.push(getBookInformation());
             console.log(myLibrary);
             buildLibrary();
+            populateStorage();
             removeBackgroundFadeOut();
             removeForm();
         } 
@@ -283,6 +308,7 @@ function doubleCheckDelete(bookTitle, bookAuthor, eventData) {
                     bookToDelete.remove();
                     console.log(myLibrary);
                     buildLibrary();
+                    populateStorage();
             }      
         }
     });
