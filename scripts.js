@@ -8,6 +8,11 @@ function pageLoad () {
 }
 
 function bookInfoForm () {
+    let backgroundFadeOut = document.createElement('div');
+    backgroundFadeOut.classList.add('backgroundFadeOut');
+    container.insertBefore(backgroundFadeOut, header);
+    backgroundFadeOut.addEventListener('click', backgroundClickExit);
+    
     const formDiv = document.createElement('div');
     formDiv.id = 'formDiv';
     container.appendChild(formDiv);
@@ -133,14 +138,10 @@ function submitForm() {
             myLibrary.push(getBookInformation());
             console.log(myLibrary);
             addBookToLibrary();
+            removeBackgroundFadeOut();
             removeForm();
         } 
     }   
-}
-
-function bookCheck (newBook) {
-    console.log(newBook.title);
-    return true;
 }
 
 function getBookInformation () {
@@ -159,73 +160,155 @@ function addBookToLibrary () {
         console.log(bookInformation);
         //console.log(bookList.querySelector(`[data-title='${book.title}']`));
         
-        if (!document.querySelector(`[data-title='${book.title}']`) && !document.querySelector(`[data-author='${book.author}']`)) {
+        if ((!document.querySelector(`[data-title='${book.title}']`) && !document.querySelector(`[data-author='${book.author}']`)) 
+        || (document.querySelector(`[data-title='${book.title}']`) && !document.querySelector(`[data-author='${book.author}']`))) {
             let newBookDiv = document.createElement('div');
             newBookDiv.className = 'libraryBook';
             newBookDiv.dataset.title = `${book.title}`;
             newBookDiv.dataset.author = `${book.author}`;
             console.log(newBookDiv.dataset.title);
+            newBookDiv.id = `book:${book.title}-${book.author}`
             bookList.appendChild(newBookDiv);
             let bookHolder = document.querySelector(`[data-title='${book.title}'][data-author='${book.author}']`);
+            
+            let removeBookButton = document.createElement('p')
+            removeBookButton.id = `${book.title}-${book.author}-removeBookButton`
+            removeBookButton.classList.add('removeBookButton');
+            removeBookButton.dataset.title = `${book.title}`;
+            removeBookButton.dataset.author = `${book.author}`;
+            removeBookButton.textContent = 'x';
+            bookHolder.appendChild(removeBookButton);
+            
+            removeBookButton.addEventListener('click', deleteBook);
+            
             let title = document.createElement('p');
             title.textContent = book.title;
-            title.className = 'title'
+            title.classList.add('title', 'bookInformation');
             bookHolder.appendChild(title);
             
             let author = document.createElement('p');
             author.textContent = book.author;
-            author.className = 'author'
+            author.classList.add('author', 'bookInformation');
             bookHolder.appendChild(author);
             
             let pageCount = document.createElement('p');
             pageCount.textContent = `${book.pageCount} pages`;
-            pageCount.className = 'pageCount'
+            pageCount.classList.add('pageCount', 'bookInformation');
             bookHolder.appendChild(pageCount);
             
-            let readStatus = document.createElement('p');
-            console.log(book.isRead);
-            readStatus.textContent = book.isRead();
-            readStatus.className = 'readStatus'
+            let readStatus = document.createElement('button');
+            readStatus.id = `${book.title}-${book.author}-readStatus`
+            readStatus.textContent = `[${book.isRead()}]`;
+            readStatus.classList.add('readStatus', 'bookInformation');
             bookHolder.appendChild(readStatus);
-            
-        } else if (document.querySelector(`[data-title='${book.title}']`) && !document.querySelector(`[data-author='${book.author}']`)) {
-            let newBookDiv = document.createElement('div');
-            newBookDiv.className = 'libraryBook';
-            newBookDiv.dataset.title = `${book.title}`;
-            newBookDiv.dataset.author = `${book.author}`;
-            console.log(newBookDiv.dataset.title);
-            bookList.appendChild(newBookDiv);
-            let bookHolder = document.querySelector(`[data-title='${book.title}'][data-author='${book.author}']`);
-            let title = document.createElement('p');
-            title.textContent = book.title;
-            title.className = 'title'
-            bookHolder.appendChild(title);
-            
-            let author = document.createElement('p');
-            author.textContent = book.author;
-            author.className = 'author'
-            bookHolder.appendChild(author);
-            
-            let pageCount = document.createElement('p');
-            pageCount.textContent = `${book.pageCount} pages`;
-            pageCount.className = 'pageCount'
-            bookHolder.appendChild(pageCount);
-            
-            let readStatus = document.createElement('p');
-            console.log(book.isRead);
-            readStatus.textContent = book.isRead();
-            readStatus.className = 'readStatus'
-            bookHolder.appendChild(readStatus);
-        }
-        
-        else {
-            const formDiv = document.getElementById('fromDiv');
-            console.log(formDiv);
-            console.log('already in library');
-            
+
+            readStatus.addEventListener('click', function () {
+                readStatus = document.getElementById(`${book.title}-${book.author}-readStatus`)
+                if (readStatus.textContent === '[Read]') {
+                    readStatus.textContent = '[Unread]';
+                } else {
+                    readStatus.textContent = '[Read]'
+                }
+            });
+            console.log(myLibrary);
         }
     }) 
     
+}
+
+function removeBackgroundFadeOut() {
+    let backgroundFadeOut = document.querySelector('.backgroundFadeOut');
+    backgroundFadeOut.remove();
+}
+
+function deleteBook(eventData) {
+    console.log('remove clicked');
+    let bookTitle = eventData.target.dataset.title;
+    let bookAuthor = eventData.target.dataset.author;
+    doubleCheckDelete(bookTitle, bookAuthor, eventData);
+    console.log(myLibrary);
+}
+
+function doubleCheckDelete(bookTitle, bookAuthor, eventData) {
+    console.log(bookTitle + bookAuthor);
+    let backgroundFadeOut = document.createElement('div');
+    backgroundFadeOut.classList.add('backgroundFadeOut');
+    container.insertBefore(backgroundFadeOut, header);
+    backgroundFadeOut.addEventListener('click', backgroundClickExit);
+    
+    let doubleCheckDelete = document.createElement('div');
+    doubleCheckDelete.id = 'doubleCheckDelete'
+    container.appendChild(doubleCheckDelete);
+
+    let doubleCheckDeleteText = document.createElement('p');
+    doubleCheckDeleteText.textContent = `Do you want to delete ${bookTitle} by ${bookAuthor} from your library?`
+    doubleCheckDelete.appendChild(doubleCheckDeleteText);
+
+    let doubleCheckDeleteButtonHolder = document.createElement('div');
+    doubleCheckDeleteButtonHolder.id = ('doubleCheckDeleteButtonHolder');
+    doubleCheckDelete.appendChild(doubleCheckDeleteButtonHolder);
+
+    let doubleCheckDeleteYes = document.createElement('button');
+    doubleCheckDeleteYes.id = ('doubleCheckDeleteYes');
+    doubleCheckDeleteYes.classList.add('doubleCheckDeleteButton');
+    doubleCheckDeleteYes.textContent = 'Yes'
+    doubleCheckDeleteButtonHolder.appendChild(doubleCheckDeleteYes);
+    doubleCheckDeleteYes.addEventListener('click', function () {
+        deleteDoubleCheckDelete();
+        removeBackgroundFadeOut();
+        let  bookToDelete = document.getElementById(`book:${eventData.target.dataset.title}-${eventData.target.dataset.author}`);
+        for (book in myLibrary) {
+            if (myLibrary[book].title === bookToDelete.dataset.title && myLibrary[book].author === bookToDelete.dataset.author) {
+                let libraryLength = (myLibrary.length - 1).toString();
+                if (book === libraryLength) {
+                    myLibrary.pop();
+                    console.log(myLibrary);
+                    bookToDelete.remove();
+                } else if (book === '0') {
+                    myLibrary.shift();
+                    console.log(myLibrary);
+                    bookToDelete.remove();
+                } else {
+                    myLibrary.splice(book, 1);
+                    bookToDelete.remove();
+                    console.log(myLibrary);
+                }
+                
+                
+            }
+                
+        }
+    });
+
+    let doubleCheckDeleteNo = document.createElement('button');
+    doubleCheckDeleteNo.id = ('doubleCheckDeleteNo');
+    doubleCheckDeleteNo.classList.add('doubleCheckDeleteButton');
+    doubleCheckDeleteNo.textContent = 'No'
+    doubleCheckDeleteButtonHolder.appendChild(doubleCheckDeleteNo);
+    doubleCheckDeleteNo.addEventListener('click', function () {
+        deleteDoubleCheckDelete();
+        removeBackgroundFadeOut();
+    });
+}
+
+function backgroundClickExit () {
+    removeBackgroundFadeOut();
+    if (document.getElementById('doubleCheckDelete')){
+        deleteDoubleCheckDelete();
+    } else if (document.getElementById('formDiv')) {
+        removeForm(); 
+    }
+}
+
+function deleteDoubleCheckDelete() {
+    let doubleCheckDelete = document.getElementById('doubleCheckDelete');
+    doubleCheckDelete.remove();
+}  
+
+function swapReadStatus() {
+    let readStatus = bookList.getElementsByClassName('readStatus');
+    
+    console.log(readStatus);
 }
 
 function removeForm () {
