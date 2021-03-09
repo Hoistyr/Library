@@ -2,6 +2,7 @@ html, body {
     height: 100%;
     width: 100%;
     margin: 0;
+    box-sizing: border-box;
 }
 
 #container {
@@ -89,13 +90,14 @@ html, body {
     margin-right: auto;
     left: 0;
     right: 0;
-    background-color: #636e72;
-    color: white;
+    background-color: white;
+    background-image: linear-gradient(to bottom right, white, #dfe6e9);
+    box-shadow:3px 3px 20px rgba(0, 0, 0, 0.452);
+    color: #636e72;
     z-index: 99;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 25px;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;
 }
 
@@ -105,6 +107,11 @@ html, body {
 
 #bookReadNoText {
     margin-left: 5px;
+}
+
+#bookReadInput {
+	background-color: #fafafa;
+    border-style: none;
 }
 
 #formInputCheckboxDiv {
@@ -122,8 +129,9 @@ html, body {
 #submitButton {
     text-align: center;
     font-size: larger;
-    background-color: transparent;
+    background-color: #636e72;
     border-color: transparent;
+    border-radius: 5px;
     margin-bottom: 15px;
     color: white;
 }
@@ -212,39 +220,45 @@ html, body {
     margin-right: auto;
     left: 0;
     right: 0;
-    background-color: #2d3436;
+    background-image: linear-gradient(to bottom right, white, #dfe6e9);
     z-index: 99;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 1.25rem;
+    font-family: Arial, Helvetica, sans-serif;
     padding: 1rem;
+    box-shadow:3px 3px 20px rgba(0, 0, 0, 0.452);
+    color: #636e72;
 }
 
 #doubleCheckDeleteButtonHolder {
     margin-bottom: 1rem;
-}
-
-#doubleCheckDelete {
-    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .doubleCheckDeleteButton {
-    background-color: transparent;
     border-style: none;
     font-family: inherit;
     font-style: inherit;
     font-size: inherit;
-    color:white;
+    color: white;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #636e72;
+    border-radius: 2px;
+    margin: 8px;
 }
 
 .doubleCheckDeleteButton:hover {
     transform: scale(1.10);
     cursor: pointer;
 }
+
 
 #doubleCheckDeleteYes:hover {
     cursor: pointer;
@@ -259,5 +273,5 @@ html, body {
 }
 
 .read {
-    background-image: linear-gradient(to bottom right, #0984e3, #74b9ff);
+    background-image: linear-gradient(to bottom right, #63aef8, #0984e3);
 }
