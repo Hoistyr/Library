@@ -257,3 +257,7 @@ html, body {
     background-color: rgba(128, 128, 128, 0.397);
     z-index: 98;
 }
+
+.read {
+    background-image: linear-gradient(to bottom right, #0984e3, #74b9ff);
+}
