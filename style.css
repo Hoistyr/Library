@@ -124,6 +124,10 @@ html, body {
     border-style: solid;
     box-sizing: border-box;
     border-color: transparent;
+    color: #636e72;
+    font-family: inherit;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.226);
+    border-width: 0.25px;
 }
 
 #submitButton {
@@ -179,8 +183,9 @@ html, body {
 }
 
 #inLibrary {
-    color:maroon;
+    color: #ff7675;
     margin: 5px;
+    margin-bottom: 15px;
 }
 
 .title {

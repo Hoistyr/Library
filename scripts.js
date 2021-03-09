@@ -46,9 +46,8 @@ function buildLibrary () {
     myLibrary.forEach(function (book) {
         console.log('Book Title: ' + book.title);
         console.log('Book Author: ' + book.author);
-        
-        if ((!document.querySelector(`[data-title='${book.title}']`) && !document.querySelector(`[data-author='${book.author}']`)) 
-        || (document.querySelector(`[data-title='${book.title}']`) && !document.querySelector(`[data-author='${book.author}']`))) {
+        //Checks if the page already contains a book div with the dataset
+        if (!document.getElementById(`book:${book.title-book.author}`)) {
             let newBookDiv = document.createElement('div');
             newBookDiv.className = 'libraryBook';
             newBookDiv.dataset.title = `${book.title}`;
@@ -110,6 +109,8 @@ function buildLibrary () {
                 }
             });
             console.log(myLibrary);
+        } else {
+            console.log('similar title');
         }
     }) 
 }
@@ -268,8 +269,6 @@ function submitForm() {
         }
     }
     
-    console.log(bookAuthorText);
-    console.log(bookPageCountText);
     if (bookPageCountInput.value !== '' && bookAuthorInput.value !== '' && bookTitleInput.value !== '') {
         console.log('submit clicked');
         let newBook = getBookInformation();
@@ -285,9 +284,16 @@ function submitForm() {
             let formDiv = document.getElementById('formDiv');
             if (!document.getElementById('inLibrary')) { 
                 formDiv.appendChild(inLibrary);
+                let forms = formDiv.getElementsByClassName('form');
+                for (form of forms) {
+                    form.addEventListener('click', function (){
+                        inLibrary.remove();
+                    })
+                }
             }
         } else {
             myLibrary.push(getBookInformation());
+            resetBookList(booksContainer);
             buildLibrary();
             populateStorage();
             removeBackgroundFadeOut();
