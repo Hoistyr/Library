@@ -17,11 +17,6 @@ function bookInfoForm () {
     formDiv.id = 'formDiv';
     container.appendChild(formDiv);
 
-    const bookInformation = document.createElement('p');
-    bookInformation.id = 'bookInformation';
-    bookInformation.textContent = "Book Information";
-    formDiv.appendChild(bookInformation);
-
     const formInputDiv = document.createElement('div');
     formInputDiv.id = 'formInputDiv';
     formDiv.appendChild(formInputDiv);
