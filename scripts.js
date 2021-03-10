@@ -333,7 +333,7 @@ function doubleCheckDelete(bookTitle, bookAuthor, eventData) {
     container.appendChild(doubleCheckDelete);
 
     let doubleCheckDeleteText = document.createElement('p');
-    doubleCheckDeleteText.textContent = `Do you want to delete ${bookTitle} by ${bookAuthor} from your library?`
+    doubleCheckDeleteText.textContent = `Delete ${bookTitle} by ${bookAuthor} from your library?`
     doubleCheckDelete.appendChild(doubleCheckDeleteText);
 
     let doubleCheckDeleteButtonHolder = document.createElement('div');
