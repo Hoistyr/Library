@@ -1,4 +1,26 @@
 
+class Book{
+    constructor(title, author, pageCount, readStatus) {
+        this.title = title;
+        this.author = author;
+        this.pageCount = pageCount;
+        this.readStatus = readStatus;
+    }
+    
+    isRead() {
+        if (this.readStatus === true) {
+            return 'Read';
+        } else if (this.readStatus === false) {
+            return 'Unread';
+        }
+    }
+    
+    info() {
+        let bookInfo = title + ' by ' + author + ', ' + pageCount + ' pages, ' + this.isRead();
+        return bookInfo;
+    }
+}
+
 let storedLibrary = JSON.parse(localStorage.getItem('storedLibrary'));
 if (storedLibrary === null || storedLibrary == []) {
     myLibrary = [];
@@ -28,7 +50,6 @@ function buildBooks () {
         let readStatus = book.readStatus;
         let newBook = new Book(title, author, pageCount, readStatus);
         myLibrary.push(newBook);
-        
     })
 }
 
@@ -395,7 +416,7 @@ function resetBookList (parent) {
     }
 }
 
-function Book(title, author, pageCount, readStatus) {
+/*function Book(title, author, pageCount, readStatus) {
     this.title = title;
     this.author = author;
     this.pageCount = pageCount;
@@ -412,4 +433,5 @@ function Book(title, author, pageCount, readStatus) {
         let bookInfo = title + ' by ' + author + ', ' + pageCount + ' pages, ' + this.isRead();
         return bookInfo;
     }
-} 
+}*/
+
